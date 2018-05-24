@@ -13,6 +13,6 @@ Vivado installed into a docker image for CI purposes.
 
 ## Running
 
-    ```shell
-    docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix vivado:2018.1
-    ```
+```shell
+docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix vivado:2018.1
+```
