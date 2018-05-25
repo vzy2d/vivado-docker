@@ -27,13 +27,13 @@ ARG VIVADO_VERSION
 ARG VIVADO_TAR_FILE
 
 COPY install_config.txt /
-COPY ${VIVADO_INSTALL_FILE} /
+COPY ${VIVADO_TAR_FILE} /
 
 # run the install
 RUN mkdir /install_vivado && \
   tar -xf ${VIVADO_TAR_FILE} -C /install_vivado && \
   /install_vivado/*/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config /install_config.txt && \
-  rm -rf /${VIVADO_INSTALL_FILE} /install_config.txt /install_vivado
+  rm -rf /${VIVADO_TAR_FILE} /install_config.txt /install_vivado
 
 #make a Vivado user
 RUN adduser --disabled-password --gecos '' vivado
@@ -52,4 +52,4 @@ RUN echo "source /opt/Xilinx/Vivado/${VIVADO_VERSION}/settings64.sh" >> /home/vi
 #RUN mkdir /home/vivado/.Xilinx
 #COPY Xilinx.lic /home/vivado/.Xilinx/
 
-CMD ["/opt/Xilinx/Vivado/${VIVADO_VERSION}/bin/vivado"]
+CMD ["sh","-c","exec /opt/Xilinx/Vivado/${VIVADO_VERSION}/bin/vivado"]
