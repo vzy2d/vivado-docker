@@ -27,19 +27,19 @@ RUN sed -i.bak s/archive.ubuntu.com/mirror.tuna.tsinghua.edu.cn/g /etc/apt/sourc
 ARG VIVADO_VERSION
 ARG VIVADO_TAR_FILE
 
+RUN mkdir /install_vivado
 COPY install_config.txt /
-COPY ${VIVADO_TAR_FILE} /
+# ADD does the extraction
+ADD ${VIVADO_TAR_FILE} /install_vivado/
 
 # run the install
-RUN mkdir /install_vivado && \
-  tar -xf ${VIVADO_TAR_FILE} -C /install_vivado && \
-  /install_vivado/*/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config /install_config.txt && \
+RUN /install_vivado/*/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config /install_config.txt && \
   rm -rf /${VIVADO_TAR_FILE} /install_config.txt /install_vivado
 
 #make a Vivado user
-RUN adduser --disabled-password --gecos '' vivado
-RUN usermod -aG sudo vivado
-RUN echo "vivado ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN adduser --disabled-password --gecos '' vivado &&\
+  usermod -aG sudo vivado &&\
+  echo "vivado ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER vivado
 WORKDIR /home/vivado
