@@ -21,6 +21,7 @@ RUN sed -i.bak s/archive.ubuntu.com/mirror.tuna.tsinghua.edu.cn/g /etc/apt/sourc
   libxrandr2 \
   libfreetype6 \
   libfontconfig \
+  lsb-release \
   git
 
 ARG VIVADO_VERSION
