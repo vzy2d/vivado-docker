@@ -35,7 +35,7 @@ COPY install_config.txt /
 ADD ${VIVADO_TAR_FILE} /install_vivado/
 
 # run the install
-RUN /install_vivado/*/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config /install_config.txt && \
+RUN ls /install_vivado && /install_vivado/*/xsetup --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA --batch Install --config /install_config.txt && \
   rm -rf /${VIVADO_TAR_FILE} /install_config.txt /install_vivado
 
 #make a Vivado user
